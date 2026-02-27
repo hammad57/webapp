@@ -1,0 +1,81 @@
+:root {
+    --primary: #4f46e5;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* Theme Classes */
+body.theme-dark { --primary: #818cf8; --bg: #0f172a; --card: #1e293b; --text: #f1f5f9; }
+body.theme-ocean { --primary: #0ea5e9; --bg: #f0f9ff; --card: #ffffff; --text: #0c4a6e; }
+body.theme-royal { --primary: #8b5cf6; --bg: #f5f3ff; --card: #ffffff; --text: #4c1d95; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+
+body { background-color: var(--bg); color: var(--text); transition: all 0.3s ease; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+/* Navbar Styling */
+.glass-nav {
+    background: var(--card);
+    padding: 1rem 2rem;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0; z-index: 100;
+}
+.nav-container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--text); }
+.logo span { color: var(--primary); }
+
+.account-btn {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--bg); border: 1px solid #e2e8f0;
+    padding: 8px 15px; border-radius: 50px; cursor: pointer;
+}
+.account-btn img { width: 24px; height: 24px; border-radius: 50%; }
+
+/* Dropdown Card */
+.dropdown-card {
+    position: absolute; right: 2rem; top: 70px;
+    background: var(--card); border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 200px; padding: 10px; display: flex; flex-direction: column;
+}
+.hidden { display: none !important; }
+
+/* Packages Grid */
+.packages-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px; margin-top: 30px;
+}
+.pkg-card {
+    background: var(--card); border-radius: 16px; overflow: hidden;
+    box-shadow: var(--shadow); transition: transform 0.3s;
+}
+.pkg-card:hover { transform: translateY(-5px); }
+.pkg-img-box img { width: 100%; height: 180px; object-fit: cover; }
+.pkg-info { padding: 20px; text-align: center; }
+
+/* Buttons */
+.btn-primary {
+    background: var(--primary); color: white; border: none;
+    padding: 12px 25px; border-radius: 8px; font-weight: 600; cursor: pointer; width: 100%;
+}
+
+/* Modal Styling */
+.modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center; z-index: 1000;
+}
+.settings-card {
+    background: var(--card); width: 90%; max-width: 500px;
+    border-radius: 20px; padding: 25px;
+}
+.input-box { margin-bottom: 15px; }
+.input-box label { display: block; font-size: 0.8rem; margin-bottom: 5px; opacity: 0.7; }
+.input-box input {
+    width: 100%; padding: 10px; border-radius: 8px;
+    border: 1px solid #cbd5e1; background: var(--bg); color: var(--text);
+}

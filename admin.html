@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | MyPlatform</title>
+    
+    <link rel="stylesheet" href="styles.css"> 
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="admin-body">
+
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+            <div class="logo">Admin<span>Panel</span></div>
+            <nav class="side-nav">
+                <a href="javascript:void(0)" class="nav-item active" onclick="showSection('dashboard')">📊 Dashboard</a>
+                <a href="javascript:void(0)" class="nav-item" onclick="showSection('user-management')">👥 Users</a>
+                <a href="javascript:void(0)" class="nav-item" onclick="showSection('posts-section')">📝 Posts</a>
+                <a href="index.html" class="logout-red">🏠 Home</a>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <section id="dashboard" class="admin-section">
+                <div class="section-header">
+                    <h2>Platform Overview</h2>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Registered</h3>
+                        <p id="totalRegCount">128</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Dummy</h3>
+                        <p id="totalDummyCount">45</p>
+                    </div>
+                </div>
+                <div class="graph-box">
+                    <canvas id="userGraph"></canvas>
+                </div>
+            </section>
+
+            <section id="user-management" class="admin-section hidden">
+                <h2>User List</h2>
+                <div class="table-container">
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Method</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTableBody">
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
