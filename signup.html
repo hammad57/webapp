@@ -3,53 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Signup | MyPlatform</title>
-    <link rel="stylesheet" href="auth-style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Join Us | MyPlatform</title>
+    <link rel="stylesheet" href="auth-styles.css">
 </head>
 <body>
-
-    <div class="main-container">
-        <div class="signup-card">
-            <div class="header">
-                <h2>Create Account</h2>
-                <p>Register to explore our templates</p>
-            </div>
-
-            <form id="signupForm">
-                <div class="avatar-wrapper">
-                    <div class="image-circle">
-                        <img id="preview" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile">
-                    </div>
-                    <input type="file" id="picInput" hidden accept="image/*">
-                    <label for="picInput" class="upload-label">Change Photo</label>
-                </div>
-
-                <div class="input-container">
-                    <input type="email" placeholder="Email Address (abc@gmail.com)" required>
-                    <input type="number" placeholder="Mobile Number" required>
-                    <input type="password" placeholder="Create Password" required>
-                </div>
-
-                <button type="submit" class="signup-btn">Signup Now</button>
-            </form>
-
-            <div class="or-divider"><span>OR</span></div>
-
-            <button class="google-btn">
-                <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google">
-                Signup with Gmail
-            </button>
+    <div class="signup-card">
+        <div class="tabs">
+            <button id="tabLogin" onclick="toggleForm('login')">Login</button>
+            <button id="tabSignup" class="active" onclick="toggleForm('signup')">Signup</button>
         </div>
-    </div>
 
+        <div id="signupForm">
+            <div class="avatar-wrapper">
+                <img id="preview" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
+                <input type="file" id="picInput" hidden>
+                <label for="picInput">Upload Photo</label>
+            </div>
+            <input type="text" id="sUser" placeholder="Username">
+            <input type="number" id="sPhone" placeholder="Mobile Number">
+            <input type="password" id="sPass" placeholder="Password">
+            <button class="signup-btn" id="manualSignupBtn">Signup Now</button>
+        </div>
+
+        <div id="loginForm" class="hidden">
+            <input type="text" id="lUser" placeholder="Username">
+            <input type="password" id="lPass" placeholder="Password">
+            <button class="signup-btn" id="manualLoginBtn">Login</button>
+        </div>
+
+        <div class="or-divider"><span>OR</span></div>
+        <button class="google-btn" id="googleBtn">
+            <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png"> Continue with Google
+        </button>
+    </div>
+    <script type="module" src="auth.js"></script>
     <script>
-        // Image preview logic
-        document.getElementById('picInput').onchange = function(evt) {
-            const [file] = this.files;
-            if (file) {
-                document.getElementById('preview').src = URL.createObjectURL(file);
-            }
+        function toggleForm(type){
+            document.getElementById('signupForm').classList.toggle('hidden', type==='login');
+            document.getElementById('loginForm').classList.toggle('hidden', type==='signup');
+            document.getElementById('tabLogin').classList.toggle('active', type==='login');
+            document.getElementById('tabSignup').classList.toggle('active', type==='signup');
         }
     </script>
 </body>
