@@ -3,66 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | MyPlatform</title>
-    
-    <link rel="stylesheet" href="styles.css"> 
-    
+    <title>Admin Panel | MyPlatform</title>
+    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="admin-body">
-
-    <div class="admin-wrapper">
+<body>
+    <div class="admin-container">
         <aside class="sidebar">
-            <div class="logo">Admin<span>Panel</span></div>
-            <nav class="side-nav">
-                <a href="javascript:void(0)" class="nav-item active" onclick="showSection('dashboard')">📊 Dashboard</a>
-                <a href="javascript:void(0)" class="nav-item" onclick="showSection('user-management')">👥 Users</a>
-                <a href="javascript:void(0)" class="nav-item" onclick="showSection('posts-section')">📝 Posts</a>
-                <a href="index.html" class="logout-red">🏠 Home</a>
+            <div class="logo">Admin<span>Pro</span></div>
+            <nav>
+                <button onclick="showSection('dash')" class="nav-btn active">📊 Dashboard</button>
+                <button onclick="showSection('users')" class="nav-btn">👥 User Management</button>
+                <button onclick="showSection('posts')" class="nav-btn">📝 Publish Posts</button>
+                <a href="index.html" class="nav-btn">🏠 View Site</a>
             </nav>
         </aside>
 
-        <main class="admin-main">
-            <section id="dashboard" class="admin-section">
-                <div class="section-header">
-                    <h2>Platform Overview</h2>
-                </div>
+        <main class="main-content">
+            <section id="dash" class="admin-section">
+                <h2>Platform Statistics</h2>
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <h3>Registered</h3>
-                        <p id="totalRegCount">128</p>
+                        <h3>Registered Users</h3>
+                        <p id="regCount">0</p>
                     </div>
                     <div class="stat-card">
-                        <h3>Dummy</h3>
-                        <p id="totalDummyCount">45</p>
+                        <h3>Dummy Users</h3>
+                        <p id="dummyCount">0</p>
                     </div>
                 </div>
-                <div class="graph-box">
-                    <canvas id="userGraph"></canvas>
+                <div class="chart-container">
+                    <canvas id="userChart"></canvas>
                 </div>
             </section>
 
-            <section id="user-management" class="admin-section hidden">
-                <h2>User List</h2>
-                <div class="table-container">
+            <section id="users" class="admin-section hidden">
+                <h2>Manage Users</h2>
+                <div class="table-wrapper">
                     <table class="user-table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Method</th>
+                                <th>Profile</th>
+                                <th>Username</th>
                                 <th>Status</th>
+                                <th>Expiry</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody id="userTableBody">
-                            </tbody>
+                        <tbody id="userList"></tbody>
                     </table>
+                </div>
+            </section>
+
+            <section id="posts" class="admin-section hidden">
+                <h2>Publish Content</h2>
+                <div class="post-form">
+                    <input type="text" id="postTitle" placeholder="Post Title">
+                    <textarea id="postContent" rows="5" placeholder="Enter instructions..."></textarea>
+                    <button id="btnPublish" class="btn-primary">Publish to Index</button>
                 </div>
             </section>
         </main>
     </div>
 
-    <script src="admin.js"></script>
+    <div id="editModal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Edit User</h3>
+            <div class="input-group">
+                <label>Status</label>
+                <select id="editStatus">
+                    <option value="Active">Active</option>
+                    <option value="Deactive">Deactive</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Subscription Expiry</label>
+                <input type="date" id="editExpiry">
+            </div>
+            <div class="modal-btns">
+                <button id="saveUser" class="btn-primary">Save Changes</button>
+                <button onclick="closeModal()" class="btn-outline">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="admin.js"></script>
 </body>
 </html>
