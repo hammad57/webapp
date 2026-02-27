@@ -1,62 +1,56 @@
-// --- 1. UI Elements & Dropdown Logic ---
-const userIconBtn = document.getElementById('userIconBtn');
-const userDropdown = document.getElementById('userDropdown');
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, get, set, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-userIconBtn.addEventListener('click', () => {
-    userDropdown.classList.toggle('hidden');
-});
+const firebaseConfig = {
+    databaseURL: "https://dailytasktracker-1851b-default-rtdb.firebaseio.com/",
+    // Yahan apni Firebase Project Settings se API Key aur Auth Domain copy karke paste karein
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com"
+};
 
-// --- 2. Settings Modal Logic ---
-const settingsLink = document.getElementById('settingsLink');
-const settingsModal = document.getElementById('settingsModal');
-const closeSettings = document.getElementById('closeSettings');
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-settingsLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    settingsModal.classList.remove('hidden');
-    userDropdown.classList.add('hidden'); // Dropdown band kar dein
-});
+// 1. Load Templates & Settings
+function loadUserSettings(userId) {
+    const userRef = ref(db, 'users/' + userId);
+    onValue(userRef, (snapshot) => {
+        const data = snapshot.val();
+        if(data) {
+            document.body.className = data.theme || 'theme-default';
+            document.getElementById('navUsername').innerText = data.username;
+            document.getElementById('navProfilePic').src = data.profilePic;
+        }
+    });
+}
 
-closeSettings.addEventListener('click', () => {
-    settingsModal.classList.add('hidden');
-});
-
-// --- 3. Layout/Theme Applicator Logic ---
-const applyLayoutBtn = document.getElementById('applyLayoutBtn');
-const templateSelector = document.getElementById('templateSelector');
-
-applyLayoutBtn.addEventListener('click', () => {
-    const selectedTheme = templateSelector.value;
-    
-    // Body se purani classes remove kar ke nayi theme class add karein
-    document.body.className = ''; 
-    document.body.classList.add(selectedTheme);
-    
-    // Future Note: Yahan code aayega jo is setting ko Firebase mein save karega
-    alert("Template Applied: " + selectedTheme);
-});
-
-// --- 4. Password Visibility Toggle ---
-const toggleEye = document.getElementById('toggleEye');
-const passwordInput = document.getElementById('passwordInput');
-
-toggleEye.addEventListener('click', () => {
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        toggleEye.innerText = "🙈";
-    } else {
-        passwordInput.type = "password";
-        toggleEye.innerText = "👁️";
+// 2. Load Packages
+const pkgRef = ref(db, 'packages');
+onValue(pkgRef, (snapshot) => {
+    const pkgs = snapshot.val();
+    const container = document.getElementById('packagesContainer');
+    container.innerHTML = '';
+    for(let id in pkgs) {
+        container.innerHTML += `
+            <div class="pkg-card">
+                <img src="${pkgs[id].img}">
+                <h3>${pkgs[id].name}</h3>
+                <button onclick="subscribe('${id}')">Subscribe</button>
+            </div>
+        `;
     }
 });
 
-// --- FIREBASE PLACEHOLDERS (Next Steps) ---
-/*
-  Yahan hum Firebase import karenge (Auth, Firestore/Realtime DB, Storage).
-  Example functions jo humein bananay honge:
-  
-  1. checkAuthState(): Check karega ke user logged in hai ya nahi.
-     - Agar logged in hai toh Login/Signup button hide kar ke Settings/Logout show karega.
-  2. loadPackages(): Firebase Storage/DB se Pkg1, Pkg2, Pkg3 ki pictures fetch karega.
-  3. loadPosts(): Admin ke banaye gaye posts fetch kar ke <div id="posts-container"> mein show karega.
-*/
+// 3. Load Posts
+onValue(ref(db, 'posts'), (snapshot) => {
+    const posts = snapshot.val();
+    const container = document.getElementById('posts-container');
+    container.innerHTML = '';
+    for(let id in posts) {
+        container.innerHTML += `<div class="post-card"><h4>${posts[id].title}</h4><p>${posts[id].content}</p></div>`;
+    }
+});
+
+// Settings Toggle
+document.getElementById('settingsBtn').onclick = () => document.getElementById('settingsModal').classList.remove('hidden');
+document.getElementById('closeSettings').onclick = () => document.getElementById('settingsModal').classList.add('hidden');
