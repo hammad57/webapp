@@ -3,113 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebPlatform | Pro</title>
+    <title>WebPlatform | Home</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="theme-default">
+<body class="theme-default" id="mainBody">
 
     <nav class="glass-nav">
         <div class="nav-container">
             <div class="logo">My<span>Platform</span></div>
             <div class="user-menu-wrapper">
                 <button id="userIconBtn" class="account-btn">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User">
-                    <span>Account</span>
+                    <img id="navProfilePic" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User">
+                    <span id="navUsername">Account</span>
                 </button>
                 <div id="userDropdown" class="dropdown-card hidden">
-                    <a href="login.html">Login</a>
-                    <a href="signup.html">Signup</a>
-                    <hr>
-                    <a href="#" id="settingsLink">Settings</a>
-                    <a href="#" class="logout-red">Logout</a>
+                    <a href="signup.html" id="loginMenuBtn">Login / Signup</a>
+                    <a href="#" id="settingsBtn" class="hidden">Settings</a>
+                    <a href="#" id="logoutBtn" class="hidden">Logout</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <main class="container">
-        
         <section class="section-padding">
             <h2 class="section-title">Subscription Plans</h2>
-            <div class="packages-grid">
-                <div class="pkg-card">
-                    <div class="pkg-img-box"><img id="pkg1-img" src="https://via.placeholder.com/300x180?text=Basic+Plan" alt="Pkg1"></div>
-                    <div class="pkg-info">
-                        <h3>Starter</h3>
-                        <button class="btn-primary">Subscribe Now</button>
-                    </div>
+            <div class="packages-grid" id="packagesContainer">
                 </div>
-                <div class="pkg-card featured">
-                    <div class="pkg-img-box"><img id="pkg2-img" src="https://via.placeholder.com/300x180?text=Pro+Plan" alt="Pkg2"></div>
-                    <div class="pkg-info">
-                        <h3>Professional</h3>
-                        <button class="btn-primary">Subscribe Now</button>
-                    </div>
-                </div>
-                <div class="pkg-card">
-                    <div class="pkg-img-box"><img id="pkg3-img" src="https://via.placeholder.com/300x180?text=Ultra+Plan" alt="Pkg3"></div>
-                    <div class="pkg-info">
-                        <h3>Ultra Premium</h3>
-                        <button class="btn-primary">Subscribe Now</button>
-                    </div>
-                </div>
-            </div>
         </section>
 
         <section class="section-padding">
-            <h2 class="section-title">Latest Updates</h2>
+            <h2 class="section-title">Admin Updates</h2>
             <div id="posts-container" class="posts-grid">
-                <div class="post-placeholder">Admin has not posted anything yet...</div>
-            </div>
+                </div>
         </section>
     </main>
 
     <div id="settingsModal" class="modal-overlay hidden">
         <div class="settings-card">
             <div class="settings-header">
-                <h2>User Settings</h2>
-                <button id="closeSettings" class="close-icon">&times;</button>
+                <h2>Settings</h2>
+                <button id="closeSettings">&times;</button>
             </div>
-            
             <div class="settings-body">
                 <div class="setting-group">
-                    <h4>Profile Information</h4>
-                    <div class="profile-upload">
-                        <img id="profilePicPreview" src="https://via.placeholder.com/80" alt="Profile">
-                        <input type="file" id="changeProfilePic" hidden>
-                        <label for="changeProfilePic" class="btn-outline">Change Photo</label>
-                    </div>
-                    <div class="input-box">
-                        <label>Username</label>
-                        <input type="text" value="User123" disabled class="locked-input">
-                    </div>
+                    <img id="setProfilePic" src="" class="profile-lg">
+                    <p>Username: <strong id="setUsername">...</strong></p>
                     <div class="input-box">
                         <label>Password</label>
-                        <div class="password-wrapper">
-                            <input type="password" id="passwordInput" value="password123">
-                            <button id="toggleEye">👁️</button>
-                            <button class="btn-small">Update</button>
-                        </div>
+                        <input type="password" id="setPass" value="******">
+                        <button id="updatePass">Update</button>
                     </div>
                 </div>
-
                 <div class="setting-group">
-                    <h4>Appearance (Layout Setting)</h4>
-                    <div class="theme-selector">
-                        <select id="templateSelector">
-                            <option value="theme-default">Classic White</option>
-                            <option value="theme-dark">Midnight Dark</option>
-                            <option value="theme-ocean">Ocean Blue</option>
-                            <option value="theme-royal">Royal Purple</option>
-                        </select>
-                        <button id="applyLayoutBtn" class="btn-apply">Apply Design</button>
-                    </div>
+                    <h4>Layout Setting</h4>
+                    <select id="themeSelect">
+                        <option value="theme-default">Default White</option>
+                        <option value="theme-dark">Midnight Dark</option>
+                        <option value="theme-ocean">Ocean Blue</option>
+                        <option value="theme-royal">Royal Purple</option>
+                        <option value="theme-sunset">Sunset Red</option>
+                        <option value="theme-forest">Forest Green</option>
+                        <option value="theme-gold">Golden Elite</option>
+                        <option value="theme-minimal">Minimal Grey</option>
+                    </select>
+                    <button class="btn-primary" id="applyTheme">Apply</button>
+                </div>
+                <div class="setting-group">
+                    <h4>Status: <span id="statusLabel">Active</span></h4>
+                    <p>Expiry: <span id="expiryLabel">N/A</span></p>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 </html>
